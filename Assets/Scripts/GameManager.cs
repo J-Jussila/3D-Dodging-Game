@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,10 +9,16 @@ public class GameManager : MonoBehaviour
     public float maxX;
 
     public Transform spawnPoint;
+
+    int score = 0;
+
+    public TextMeshProUGUI scoreText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InvokeRepeating("SpawnStone", 0.5f, 2f);
+        InvokeRepeating("SpawnStone", 0.5f, 1.5f);
+
+        InvokeRepeating("UpdateScore", 3f, 2f);
     }
 
     // Update is called once per frame
@@ -27,5 +34,11 @@ public class GameManager : MonoBehaviour
         spawnPos.x = Random.Range(-maxX, maxX);
 
         Instantiate(stone, spawnPos, Quaternion.identity);
+    }
+
+    void UpdateScore()
+    {
+        score++;
+        scoreText.text = score.ToString();
     }
 }
